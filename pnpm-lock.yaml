@@ -1,12 +1,14 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@polka/redirect': 1.0.0-next.0
   discord.js: ^14.3.0
   dotenv: ^16.0.2
   dprint: ^0.31.1
   polka: ^0.5.2
 
 dependencies:
+  '@polka/redirect': 1.0.0-next.0
   discord.js: 14.3.0
   dotenv: 16.0.2
   polka: 0.5.2
@@ -48,6 +50,10 @@ packages:
       file-type: 17.1.6
       tslib: 2.4.0
       undici: 5.10.0
+    dev: false
+
+  /@polka/redirect/1.0.0-next.0:
+    resolution: {integrity: sha512-ym6ooqMr09+cV+y52p5kszJ0jYcX+nJfm8POrQb7QYowvpPPuneZ71EclHrQSB7a50lcytgR/xtL6AUFdvyEkg==}
     dev: false
 
   /@polka/url/0.5.0:
