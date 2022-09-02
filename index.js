@@ -14,7 +14,7 @@ client.once("ready", async () => {
 		const channels = guild.channels.cache.filter(channel => channel.isVoiceBased());
 		for (const channel of channels.values()) {
 			if (env.RANDOMLY_RUN != "true" || randomInt(0, 100) < 10) {
-				channel.members.at(randomInt(channel.memberCount)).voice.disconnect("Peszek");
+				channel.members.at(randomInt(channel.members.size)).voice.disconnect("Peszek");
 			}
 		}
 	}
