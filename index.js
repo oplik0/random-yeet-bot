@@ -1,5 +1,5 @@
 import { randomInt } from "node:crypto";
-import { env } from "node:process";
+import { env, exit } from "node:process";
 
 import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
@@ -17,6 +17,7 @@ client.once("ready", async () => {
 				channel.members.at(randomInt(channel.members.size)).voice.disconnect("Peszek");
 			}
 		}
+		exit();
 	}
 });
 
