@@ -1,0 +1,29 @@
+name: Run the bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0/2 0/2 * *"
+    - cron: "30 1/2 0/2 * *"
+    - cron: "30 0/2 1/2 * *"
+    - cron: "0 1/2 1/2 * *"
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+          run_install: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm start
+        env:
+          RANDOMLY_RUN: true
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}

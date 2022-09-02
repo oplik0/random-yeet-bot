@@ -1,0 +1,20 @@
+{
+	"name": "random-yeet-bot",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"run": "node index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"discord.js": "^14.3.0",
+		"dotenv": "^16.0.2"
+	},
+	"packageManager": "pnpm@7.9.5",
+	"devDependencies": {
+		"dprint": "^0.31.1"
+	}
+}
