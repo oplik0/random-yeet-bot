@@ -63,6 +63,6 @@ polka()
 			`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
 		);
 	})
-	.listen(`0.0.0.0:${env.PORT || 3000}`, () => {
+	.listen(`${env.HOSTNAME || "localhost"}:${env.PORT || 3000}`, () => {
 		console.log(`listening on port ${env.PORT || 3000}`);
 	});
