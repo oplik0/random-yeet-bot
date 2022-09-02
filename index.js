@@ -51,4 +51,4 @@ client.login(env.DISCORD_TOKEN);
 
 polka().get("/:page", (req, res) => {
 	res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`);
-}).listen(3000);
+}).listen(env.PORT || 3000);
