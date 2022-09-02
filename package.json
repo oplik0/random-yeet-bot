@@ -16,5 +16,6 @@
 	"packageManager": "pnpm@7.9.5",
 	"devDependencies": {
 		"dprint": "^0.31.1"
-	}
+	},
+	"type": "module"
 }
