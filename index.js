@@ -3,6 +3,8 @@ import { env, exit } from "node:process";
 
 import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
+import polka from "polka";
+
 dotenv.config();
 
 // Create a new client instance
@@ -46,3 +48,7 @@ async function runYeet() {
 
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
+
+polka().get("/:page", (req, res) => {
+	res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`);
+}).listen(3000);

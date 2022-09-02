@@ -11,7 +11,8 @@
 	"license": "MIT",
 	"dependencies": {
 		"discord.js": "^14.3.0",
-		"dotenv": "^16.0.2"
+		"dotenv": "^16.0.2",
+		"polka": "^0.5.2"
 	},
 	"packageManager": "pnpm@7.9.5",
 	"devDependencies": {
