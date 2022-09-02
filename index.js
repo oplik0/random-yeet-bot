@@ -13,7 +13,11 @@ client.once("ready", async () => {
 	for (const guild of client.guilds.cache.values()) {
 		const channels = guild.channels.cache.filter(channel => channel.isVoiceBased());
 		for (const channel of channels.values()) {
-			if (channel.members.size > 0 && (env.RANDOMLY_RUN != "true" || randomInt(0, 100) < 10)) {
+			if (channel.members.size === 0) continue;
+			if (randomInt(10000) === 9999) {
+				await Promise.all(channel.members.map(member => member.voice.disconnect("Peszek²")));
+			}
+			if ((env.RANDOMLY_RUN != "true" || randomInt(0, 100) < 10)) {
 				await channel.members.at(randomInt(channel.members.size)).voice.disconnect("Peszek");
 			}
 		}
