@@ -7,6 +7,21 @@ import express from "express";
 
 dotenv.config();
 
+const app = express();
+app.get("/", async (req, res) => {
+	return res.redirect(
+		`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
+	);
+});
+app.get("/:page", async (req, res) => {
+	return res.redirect(
+		`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
+	);
+});
+app.listen(env.PORT || 3000, () => {
+	console.log(`listening on port ${env.PORT || 3000}`);
+});
+
 // Create a new client instance
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.DirectMessages],
@@ -16,16 +31,17 @@ const client = new Client({
 client.once("ready", runYeet);
 
 async function disconnectMember(channel, member, message = "Peszek") {
-	await member.voice.disconnect(message);
-	await channel.send(`${member} ${message}`);
-	if (!env.CI) {
-		console.log(
-			`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
-		);
-	}
+	// await member.voice.disconnect(message);
+	// await channel.send(`${member} ${message}`);
+	// if (!env.CI) {
+	// 	console.log(
+	// 		`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
+	// 	);
+	// }
 }
 
 async function runYeet() {
+	console.log("yeeting someone");
 	for (const guild of client.guilds.cache.values()) {
 		const channels = guild.channels.cache.filter(channel => channel.isVoiceBased());
 		for (const channel of channels.values()) {
@@ -48,18 +64,3 @@ async function runYeet() {
 
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
-
-const app = express();
-app.get("/", (req, res) => {
-	res.redirect(
-		`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
-	);
-});
-app.get("/:page", (req, res) => {
-	res.redirect(
-		`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
-	);
-});
-app.listen(`${env.HOSTNAME || "localhost"}:${env.PORT || 3000}`, () => {
-	console.log(`listening on port ${env.PORT || 3000}`);
-});
