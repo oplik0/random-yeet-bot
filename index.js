@@ -13,6 +13,9 @@ app.get("/", async (req, res) => {
 		`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
 	);
 });
+app.get("/test", async (req, res) => {
+	return res.send("ok");
+});
 app.get("/:page", async (req, res) => {
 	return res.redirect(
 		`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
@@ -31,13 +34,13 @@ const client = new Client({
 client.once("ready", runYeet);
 
 async function disconnectMember(channel, member, message = "Peszek") {
-	// await member.voice.disconnect(message);
-	// await channel.send(`${member} ${message}`);
-	// if (!env.CI) {
-	// 	console.log(
-	// 		`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
-	// 	);
-	// }
+	await member.voice.disconnect(message);
+	await channel.send(`${member} ${message}`);
+	if (!env.CI) {
+		console.log(
+			`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
+		);
+	}
 }
 
 async function runYeet() {
