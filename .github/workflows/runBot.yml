@@ -22,5 +22,5 @@ jobs:
       - run: pnpm install
       - run: pnpm start
         env:
-          RANDOMLY_RUN: true
+          RANDOMLY_RUN: ${{ github.event_name == 'schedule' }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
