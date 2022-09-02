@@ -40,7 +40,7 @@ async function runYeet() {
 	if (env.CI) {
 		exit();
 	} else {
-		setTimeout(runYeet, randomInt(600, 10800) * 1000);
+		setTimeout(runYeet, randomInt(300, 3600) * 1000);
 	}
 }
 
