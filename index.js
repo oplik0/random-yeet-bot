@@ -16,6 +16,11 @@ client.once("ready", runYeet);
 async function disconnectMember(channel, member, message = "Peszek") {
 	await member.voice.disconnect(message);
 	await channel.send(`${member} ${message}`);
+	if (!env.CI) {
+		console.log(
+			`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
+		);
+	}
 }
 
 async function runYeet() {
