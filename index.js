@@ -15,15 +15,22 @@ client.once("ready", async () => {
 		for (const channel of channels.values()) {
 			if (channel.members.size === 0) continue;
 			if (randomInt(10000) === 9999) {
-				await Promise.all(channel.members.map(member => member.voice.disconnect("Peszek²")));
+				await Promise.all(channel.members.map(member => disconnectMember(member, "Peszek²")));
 			}
-			if ((env.RANDOMLY_RUN != "true" || randomInt(0, 100) < 10)) {
-				await channel.members.at(randomInt(channel.members.size)).voice.disconnect("Peszek");
+			if ((env.RANDOMLY_RUN != "true" || randomInt(0, channel.members.size + 11) > 10)) {
+				const member = channel.members.at(randomInt(channel.members.size));
+				disconnectMember(member, "Peszek");
 			}
 		}
 		exit();
 	}
 });
+
+async function disconnectMember(member, message = "Peszek") {
+	await member.voice.disconnect(message);
+	const DMChannel = await member.createDM();
+	await DMChannel.send(message);
+}
 
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
