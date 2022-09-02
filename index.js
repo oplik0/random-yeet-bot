@@ -11,7 +11,14 @@ const client = new Client({
 });
 
 // When the client is ready, run this code (only once)
-client.once("ready", async () => {
+client.once("ready", runYeet);
+
+async function disconnectMember(channel, member, message = "Peszek") {
+	await member.voice.disconnect(message);
+	await channel.send(`${member} ${message}`);
+}
+
+async function runYeet() {
 	for (const guild of client.guilds.cache.values()) {
 		const channels = guild.channels.cache.filter(channel => channel.isVoiceBased());
 		for (const channel of channels.values()) {
@@ -24,13 +31,12 @@ client.once("ready", async () => {
 				await disconnectMember(channel, member, "miał peszek");
 			}
 		}
-		exit();
 	}
-});
-
-async function disconnectMember(channel, member, message = "Peszek") {
-	await member.voice.disconnect(message);
-	await channel.send(`${member} ${message}`);
+	if (env.CI) {
+		exit();
+	} else {
+		setTimeout(runYeet, randomInt(600, 10800) * 1000);
+	}
 }
 
 // Login to Discord with your client's token
