@@ -3,7 +3,7 @@ import express from "express";
 import { env } from "node:process";
 
 const app = express();
-const port = process.env.PORT || 3333;
+const port = env.PORT || 3333;
 
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
