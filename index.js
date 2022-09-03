@@ -3,10 +3,8 @@ import { env, exit } from "node:process";
 
 import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
-import { fork } from "node:child_process";
 dotenv.config();
 
-fork("./server.js");
 // Create a new client instance
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.DirectMessages],
