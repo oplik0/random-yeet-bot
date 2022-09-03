@@ -38,7 +38,7 @@ async function runYeet() {
 			}
 		}
 	}
-	if (env.CI) {
+	if (env.CI && env.RUN_FOREVER != "true") {
 		exit();
 	} else {
 		setTimeout(runYeet, randomInt(300, 3600) * 1000);
