@@ -3,26 +3,10 @@ import { env, exit } from "node:process";
 
 import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
+import { fork } from "node:child_process";
 dotenv.config();
 
-import bodyParser from "body-parser";
-import express from "express";
-
-const app = express();
-const port = process.env.PORT || 3333;
-
-app.use(bodyParser.json());
-app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
-app.use(bodyParser.text({ type: "text/html" }));
-
-app.get("/", async (req, res) => {
-	res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`);
-});
-
-app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`);
-});
-
+fork("./server.js");
 // Create a new client instance
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.DirectMessages],
