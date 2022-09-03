@@ -1,20 +1,24 @@
 import { randomInt } from "node:crypto";
 import { env, exit } from "node:process";
 
+import bodyParser from "body-parser";
 import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
 import express from "express";
-
 dotenv.config();
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
+app.use(bodyParser.text({ type: "text/html" }));
 app.get("/", async (req, res) => {
 	return res.redirect(
 		`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
 	);
 });
 app.get("/test", async (req, res) => {
-	return res.send("ok");
+	return res.json({ status: "up" });
 });
 app.get("/:page", async (req, res) => {
 	return res.redirect(
