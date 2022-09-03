@@ -41,7 +41,9 @@ async function runYeet() {
 	if (env.CI && env.RUN_FOREVER != "true") {
 		exit();
 	} else {
-		setTimeout(runYeet, randomInt(300, 3600) * 1000);
+		const timeToRun = randomInt(300, 3600) * 1000;
+		setTimeout(runYeet, timeToRun);
+		console.log(`Will run again in ${timeToRun / 1000} seconds`);
 	}
 }
 
