@@ -14,7 +14,7 @@ app.get("/health", async (req, res) => {
 });
 app.get("/", async (req, res) => {
 	res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`);
-	res.text(`go to https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`);
+	return `go to https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`;
 });
 
 app.listen(port, () => {
