@@ -1,8 +1,10 @@
 import { randomInt } from "node:crypto";
 import { env, exit } from "node:process";
 
+import redirect from "@polka/redirect";
 import { Client, GatewayIntentBits } from "discord.js";
 import * as dotenv from "dotenv";
+import polka from "polka";
 dotenv.config();
 
 // Create a new client instance
@@ -49,3 +51,20 @@ async function runYeet() {
 
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
+
+polka()
+	.get("/", (req, res) => {
+		redirect(
+			res,
+			`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
+		);
+	})
+	.get("/:page", (req, res) => {
+		redirect(
+			res,
+			`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
+		);
+	})
+	.listen(env.PORT || 3000, () => {
+		console.log(`listening on port ${env.PORT || 3000}`);
+	});
