@@ -26,7 +26,7 @@ async function disconnectMember(channel, member, message = "Peszek") {
 }
 
 async function runYeet() {
-	console.log("yeeting someone");
+	console.log("trying to yeet");
 	for (const guild of client.guilds.cache.values()) {
 		const channels = guild.channels.cache.filter(channel => channel.isVoiceBased());
 		for (const channel of channels.values()) {
@@ -35,6 +35,7 @@ async function runYeet() {
 				await Promise.all(channel.members.map(member => disconnectMember(channel, member, "miał peszek²")));
 			}
 			if (env.RANDOMLY_RUN != "true" || randomInt(0, 3 * channel.members.size + 100) > 100) {
+				console.log("success!")
 				const member = channel.members.at(randomInt(channel.members.size));
 				await disconnectMember(channel, member, "miał peszek");
 			}
