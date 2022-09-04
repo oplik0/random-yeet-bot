@@ -34,7 +34,7 @@ async function runYeet() {
 			if (randomInt(10000) === 9999) {
 				await Promise.all(channel.members.map(member => disconnectMember(channel, member, "miał peszek²")));
 			}
-			if (env.RANDOMLY_RUN != "true" || randomInt(0, 2 * channel.members.size + 100) > 100) {
+			if (env.RANDOMLY_RUN != "true" || randomInt(0, 3 * channel.members.size + 100) > 100) {
 				const member = channel.members.at(randomInt(channel.members.size));
 				await disconnectMember(channel, member, "miał peszek");
 			}
@@ -43,7 +43,7 @@ async function runYeet() {
 	if (env.CI && env.RUN_FOREVER != "true") {
 		exit();
 	} else {
-		const timeToRun = randomInt(300, 3600) * 1000;
+		const timeToRun = randomInt(360, 2700) * 1000;
 		setTimeout(runYeet, timeToRun);
 		console.log(`Will run again in ${timeToRun / 1000} seconds`);
 	}
