@@ -18,7 +18,7 @@ client.once("ready", runYeet);
 async function disconnectMember(channel, member, message = "Peszek") {
 	await member.voice.disconnect(message);
 	await channel.send(`${member} ${message}`);
-	if (!env.CI) {
+	if (!env.CI || env.VERBOSITY=="debug") {
 		console.log(
 			`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
 		);
@@ -35,6 +35,7 @@ async function runYeet() {
 				await Promise.all(channel.members.map(member => disconnectMember(channel, member, "miał peszek²")));
 			}
 			if (env.RANDOMLY_RUN != "true" || randomInt(0, 3 * channel.members.size + 100) > 100) {
+				if (env.VERBOSITY=="debug") console.log(`people in the channel: ${channel.members}`);
 				console.log("success!")
 				const member = channel.members.at(randomInt(channel.members.size));
 				await disconnectMember(channel, member, "miał peszek");
