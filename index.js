@@ -2,7 +2,7 @@ import { randomInt } from "node:crypto";
 import { env, exit } from "node:process";
 
 import redirect from "@polka/redirect";
-import { Client, Events, GatewayIntentBits, OAuth2Scopes, REST, Routes, SlashCommandBuilder } from "discord.js";
+import { Client, Events, GatewayIntentBits, OAuth2Scopes, Routes, SlashCommandBuilder } from "discord.js";
 import * as dotenv from "dotenv";
 import Keyv from "keyv";
 import polka from "polka";
@@ -107,13 +107,13 @@ polka()
 	.get("/", (req, res) => {
 		redirect(
 			res,
-			`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
+			client.generateInvite({ scopes: [OAuth2Scopes.Bot], permissions: "29362176" }),
 		);
 	})
 	.get("/:page", (req, res) => {
 		redirect(
 			res,
-			`https://discord.com/api/oauth2/authorize?client_id=${env.DISCORD_ID}&permissions=29362176&scope=bot`,
+			client.generateInvite({ scopes: [OAuth2Scopes.Bot], permissions: "29362176" }),
 		);
 	})
 	.listen(env.PORT || 3000, () => {
