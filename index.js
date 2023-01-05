@@ -84,21 +84,24 @@ client.on(Events.InteractionCreate, async interaction => {
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
 async function init() {
-	try {
-		console.log("Registering slash commands");
-		client.application.commands.create({
-			name: "peszek",
-			description: "Zwiększ peszek wybranego użytkownika na 7 dni",
-			options: [
-				{
-					name: "użytkownik",
-					description: "Użytkownik którego peszek chcesz zwiększyć",
-					type: ApplicationCommandType.User,
-				},
-			],
-		});
-	} catch (error) {
-		console.error(error);
+	if (!env.CI || env.RUN_FOREVER == "true") {
+		try {
+			console.log("Registering slash commands...");
+			client.application.commands.create({
+				name: "peszek",
+				description: "Zwiększ peszek wybranego użytkownika na 7 dni",
+				options: [
+					{
+						name: "użytkownik",
+						description: "Użytkownik którego peszek chcesz zwiększyć",
+						type: ApplicationCommandType.User,
+					},
+				],
+			});
+			console.log("Successfully registered slash commands");
+		} catch (error) {
+			console.error(error);
+		}
 	}
 	await runYeet();
 }
