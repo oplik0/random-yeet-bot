@@ -73,7 +73,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	if (
 		unfortunateUser && unfortunateUser.lastModified + 24 * 60 * 60 * 1000 > Date.now()
 	) {
-		await interaction.reply("Nie możesz zwiększyć peszka więcej niż 1 raz na 24h");
+		await interaction.reply({ content: "Nie możesz zwiększyć peszka więcej niż 1 raz na 24h", ephemeral: true });
 		return;
 	}
 	await unfortunate.set(
@@ -81,24 +81,23 @@ client.on(Events.InteractionCreate, async interaction => {
 		{ score: (unfortunateUser?.score ?? 0) + 1, lastModified: Date.now() },
 		7 * 24 * 60 * 60 * 1000,
 	);
-	await interaction.reply(
-		`Zwiększyłeś peszek użytkownika ${interaction.options.getUser("użytkownik").username} na następne 7 dni!`,
-	);
+	await interaction.reply({
+		content: `Zwiększyłeś peszek użytkownika ${interaction.options.getUser("użytkownik").username} na następne 7 dni!`,
+		ephemeral: false,
+	});
 });
 
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
 async function init() {
-	if (!env.CI) {
-		try {
-			const data = await client.rest.put(
-				Routes.applicationCommands(client.user.id),
-				{ body: [peszekSlashCommand.toJSON()] },
-			);
-			console.log(`Successfully registered ${data.length} application commands`);
-		} catch (error) {
-			console.error(error);
-		}
+	try {
+		const data = await client.rest.put(
+			Routes.applicationCommands(client.user.id),
+			{ body: [peszekSlashCommand.toJSON()] },
+		);
+		console.log(`Successfully registered ${data.length} application commands`);
+	} catch (error) {
+		console.error(error);
 	}
 	await runYeet();
 }
