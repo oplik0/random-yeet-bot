@@ -10,12 +10,14 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
+		"@keyv/redis": "^2.5.4",
 		"@polka/redirect": "1.0.0-next.0",
 		"discord.js": "^14.3.0",
 		"dotenv": "^16.0.2",
+		"keyv": "^4.5.2",
 		"polka": "^0.5.2"
 	},
-	"packageManager": "pnpm@7.9.5",
+	"packageManager": "pnpm@7.22.0",
 	"devDependencies": {
 		"dprint": "^0.31.1"
 	},

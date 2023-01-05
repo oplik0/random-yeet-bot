@@ -2,8 +2,9 @@ import { randomInt } from "node:crypto";
 import { env, exit } from "node:process";
 
 import redirect from "@polka/redirect";
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, Events, GatewayIntentBits, OAuth2Scopes, REST, Routes, SlashCommandBuilder } from "discord.js";
 import * as dotenv from "dotenv";
+import Keyv from "keyv";
 import polka from "polka";
 dotenv.config();
 
@@ -12,8 +13,10 @@ const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.DirectMessages],
 });
 
+const unfortunate = new Keyv(env.REDIS_URL, { namespace: "unfortunate" });
+
 // When the client is ready, run this code (only once)
-client.once("ready", runYeet);
+client.once("ready", init);
 
 async function disconnectMember(channel, member, message = "Peszek") {
 	await member.voice.disconnect(message);
@@ -23,6 +26,7 @@ async function disconnectMember(channel, member, message = "Peszek") {
 			`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
 		);
 	}
+	await unfortunate.delete(member.id);
 }
 
 async function runYeet() {
@@ -34,9 +38,14 @@ async function runYeet() {
 			if (randomInt(10000) === 9999) {
 				await Promise.all(channel.members.map(member => disconnectMember(channel, member, "miał peszek²")));
 			}
-			if (env.RANDOMLY_RUN != "true" || randomInt(0, 2 * channel.members.size + 100) > 100) {
-				const member = channel.members.at(randomInt(channel.members.size));
-				await disconnectMember(channel, member, "miał peszek");
+			for (const member of channel.members.sorted((_, __) => randomInt(-1, 2)).values()) {
+				if (
+					env.RANDOMLY_RUN != "true"
+					|| randomInt(0, 2 * channel.members.size + 100 + ((await unfortunate.get(member.id))?.score ?? 0) * 10) > 100
+				) {
+					await disconnectMember(channel, member, "miał peszek");
+					break;
+				}
 			}
 		}
 	}
@@ -49,8 +58,48 @@ async function runYeet() {
 	}
 }
 
+const peszekSlashCommand = new SlashCommandBuilder().setName("peszek").setDescription(
+	"Zwiększ peszek wybranego użytkownika",
+).addUserOption(option =>
+	option.setName("użytkownik").setDescription("Użytkownik którego peszek chcesz zwiększyć").setRequired(true)
+);
+
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+	if (interaction.commandName !== "peszek") return;
+	const unfortunateUser = await unfortunate.get(interaction.user.id);
+	if (
+		unfortunateUser && unfortunateUser.lastModified + 24 * 60 * 60 * 1000 > Date.now()
+	) {
+		await interaction.reply("Nie możesz zwiększyć peszka więcej niż 1 raz na 24h");
+		return;
+	}
+	await unfortunate.set(
+		interaction.user.id,
+		{ score: (unfortunateUser?.score ?? 0) + 1, lastModified: Date.now() },
+		7 * 24 * 60 * 60 * 1000,
+	);
+	await interaction.reply(
+		`Zwiększyłeś peszek użytkownika ${interaction.options.getUser("użytkownik").username} na następne 7 dni!`,
+	);
+});
+
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
+async function init() {
+	if (!env.CI) {
+		try {
+			const data = await client.rest.put(
+				Routes.applicationCommands(client.user.id),
+				{ body: [peszekSlashCommand.toJSON()] },
+			);
+			console.log(`Successfully registered ${data.length} application commands`);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+	await runYeet();
+}
 
 polka()
 	.get("/", (req, res) => {
