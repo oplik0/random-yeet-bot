@@ -80,7 +80,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	);
 	await interaction.reply({
 		content: `Zwiększyłeś peszek użytkownika ${interaction.options.getUser("użytkownik").username} na następne 7 dni!`,
-		ephemeral: false,
+		ephemeral: true,
 	});
 });
 
