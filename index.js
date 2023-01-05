@@ -21,7 +21,7 @@ client.once("ready", init);
 async function disconnectMember(channel, member, message = "Peszek") {
 	await member.voice.disconnect(message);
 	await channel.send(`${member} ${message}`);
-	if (!env.CI) {
+	if (!env.CI || env.VERBOSITY == "debug") {
 		console.log(
 			`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
 		);
@@ -30,7 +30,7 @@ async function disconnectMember(channel, member, message = "Peszek") {
 }
 
 async function runYeet() {
-	console.log("yeeting someone");
+	console.log("trying to yeet");
 	for (const guild of client.guilds.cache.values()) {
 		const channels = guild.channels.cache.filter(channel => channel.isVoiceBased());
 		for (const channel of channels.values()) {
@@ -38,21 +38,23 @@ async function runYeet() {
 			if (randomInt(10000) === 9999) {
 				await Promise.all(channel.members.map(member => disconnectMember(channel, member, "miał peszek²")));
 			}
+			if (env.VERBOSITY == "debug") console.log(`people in the channel: ${channel.members}`);
 			for (const member of channel.members.sorted((_, __) => randomInt(-1, 2)).values()) {
 				if (
 					env.RANDOMLY_RUN != "true"
 					|| randomInt(0, 2 * channel.members.size + 100 + ((await unfortunate.get(member.id))?.score ?? 0) * 10) > 100
 				) {
+					console.log("success!");
 					await disconnectMember(channel, member, "miał peszek");
 					break;
 				}
 			}
 		}
 	}
-	if (env.CI && env.RUN_FOREVER != "true") {
+	if (env.CI || env.RUN_FOREVER != "true") {
 		exit();
 	} else {
-		const timeToRun = randomInt(300, 3600) * 1000;
+		const timeToRun = randomInt(360, 2700) * 1000;
 		setTimeout(runYeet, timeToRun);
 		console.log(`Will run again in ${timeToRun / 1000} seconds`);
 	}
