@@ -2,7 +2,7 @@ import { randomInt } from "node:crypto";
 import { env, exit } from "node:process";
 
 import redirect from "@polka/redirect";
-import { Client, Events, GatewayIntentBits, OAuth2Scopes, Routes, SlashCommandBuilder } from "discord.js";
+import { ApplicationCommandType, Client, Events, GatewayIntentBits, OAuth2Scopes } from "discord.js";
 import * as dotenv from "dotenv";
 import Keyv from "keyv";
 import polka from "polka";
@@ -60,12 +60,6 @@ async function runYeet() {
 	}
 }
 
-const peszekSlashCommand = new SlashCommandBuilder().setName("peszek").setDescription(
-	"Zwiększ peszek wybranego użytkownika",
-).addUserOption(option =>
-	option.setName("użytkownik").setDescription("Użytkownik którego peszek chcesz zwiększyć").setRequired(true)
-);
-
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	if (interaction.commandName !== "peszek") return;
@@ -91,11 +85,18 @@ client.on(Events.InteractionCreate, async interaction => {
 client.login(env.DISCORD_TOKEN);
 async function init() {
 	try {
-		const data = await client.rest.put(
-			Routes.applicationCommands(client.user.id),
-			{ body: [peszekSlashCommand.toJSON()] },
-		);
-		console.log(`Successfully registered ${data.length} application commands`);
+		console.log("Registering slash commands");
+		client.application.commands.create({
+			name: "peszek",
+			description: "Zwiększ peszek wybranego użytkownika na 7 dni",
+			options: [
+				{
+					name: "użytkownik",
+					description: "Użytkownik którego peszek chcesz zwiększyć",
+					type: ApplicationCommandType.User,
+				},
+			],
+		});
 	} catch (error) {
 		console.error(error);
 	}
