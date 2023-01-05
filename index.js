@@ -51,7 +51,7 @@ async function runYeet() {
 			}
 		}
 	}
-	if (env.CI || env.RUN_FOREVER != "true") {
+	if (env.CI && env.RUN_FOREVER != "true") {
 		exit();
 	} else {
 		const timeToRun = randomInt(360, 2700) * 1000;
