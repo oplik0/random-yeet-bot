@@ -26,7 +26,10 @@ async function disconnectMember(channel, member, message = "Peszek") {
 			`Kicked ${member.user.username} from channel ${channel.name} in ${channel.guild.name} with message "${message}"`,
 		);
 	}
-	await unfortunate.delete(member.id);
+	const unfortunateUser = await unfortunate.get(member.id);
+	if (unfortunateUser) {
+		await unfortunate.set(member.id, { score: 0, lastModified: unfortunateUser?.lastModified ?? Date.now() });
+	}
 }
 
 async function runYeet() {
