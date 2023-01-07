@@ -45,7 +45,7 @@ async function runYeet() {
 			for (const member of channel.members.sorted((_, __) => randomInt(-1, 2)).values()) {
 				if (
 					env.RANDOMLY_RUN != "true"
-					|| randomInt(0, 2 * channel.members.size + 100 + ((await unfortunate.get(member.id))?.score ?? 0) * 10) > 100
+					|| randomInt(0, 2 * channel.members.size + 400 + ((await unfortunate.get(member.id))?.score ?? 0) * 10) > 400
 				) {
 					console.log("success!");
 					await disconnectMember(channel, member, "miał peszek");
