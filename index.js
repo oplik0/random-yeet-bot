@@ -41,7 +41,7 @@ async function runYeet() {
 			if (randomInt(10000) === 9999) {
 				await Promise.all(channel.members.map(member => disconnectMember(channel, member, "miał peszek²")));
 			}
-			if (env.VERBOSITY == "debug") console.log(`people in the channel: ${channel.members}`);
+			if (env.VERBOSITY == "debug") console.log(`people in the channel: ${channel.members.values()}`);
 			for (const member of channel.members.sorted((_, __) => randomInt(-1, 2)).values()) {
 				if (
 					env.RANDOMLY_RUN != "true"
