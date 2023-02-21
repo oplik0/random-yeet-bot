@@ -15,6 +15,8 @@ const client = new Client({
 
 const unfortunate = new Keyv(env.REDIS_URL, { namespace: "unfortunate" });
 
+unfortunate.on("error", err => console.error("Connection Error", err));
+
 // When the client is ready, run this code (only once)
 client.once("ready", init);
 
