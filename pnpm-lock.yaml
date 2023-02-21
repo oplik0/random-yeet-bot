@@ -1,7 +1,9 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@keyv/offline': ^3.0.7
   '@keyv/redis': ^2.5.4
+  '@keyv/tiered': ^1.0.4
   '@polka/redirect': 1.0.0-next.0
   discord.js: ^14.3.0
   dotenv: ^16.0.2
@@ -10,7 +12,9 @@ specifiers:
   polka: ^0.5.2
 
 dependencies:
+  '@keyv/offline': 3.0.7
   '@keyv/redis': 2.5.4
+  '@keyv/tiered': 1.0.4
   '@polka/redirect': 1.0.0-next.0
   discord.js: 14.3.0
   dotenv: 16.0.2
@@ -60,6 +64,11 @@ packages:
     resolution: {integrity: sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==}
     dev: false
 
+  /@keyv/offline/3.0.7:
+    resolution: {integrity: sha512-/sz9RSxDvREyoEFcxjEEKNtWpvV8pKSrrAeLjSGcX9CNTPHTh8Mbms8RCs9zGQRrdX3nnjzlf4DjvVxrEtIPdw==}
+    engines: {node: '>= 12'}
+    dev: false
+
   /@keyv/redis/2.5.4:
     resolution: {integrity: sha512-27MTiJFME3R13fPiiOV/ww550gU9Zc75eJkzD+EpwRXcgunjcXcYEw1cM9XyaEI5y0aS1PPknRjKGlYRjT8nTQ==}
     engines: {node: '>= 12'}
@@ -67,6 +76,11 @@ packages:
       ioredis: 5.2.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@keyv/tiered/1.0.4:
+    resolution: {integrity: sha512-7CE3FAGwQj3vLBtJNEh9t+lcfpUOSjm3mM0+gl718GiO+PVXBRdBUvAcG7aH4vIK3I76M16D2Z6EqDtgNil/Rw==}
+    engines: {node: '>= 12'}
     dev: false
 
   /@polka/redirect/1.0.0-next.0:

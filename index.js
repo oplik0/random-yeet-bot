@@ -1,6 +1,8 @@
 import { randomInt } from "node:crypto";
 import { env, exit } from "node:process";
 
+import KeyvRedis from "@keyv/redis";
+import KeyvTiered from "@keyv/tiered";
 import redirect from "@polka/redirect";
 import { ApplicationCommandType, Client, Events, GatewayIntentBits, OAuth2Scopes } from "discord.js";
 import * as dotenv from "dotenv";
@@ -13,7 +15,9 @@ const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.DirectMessages],
 });
 
-const unfortunate = new Keyv(env.REDIS_URL, { namespace: "unfortunate" });
+const remote = new Keyv({ store: new KeyvRedis({ uri: env.REDIS_URL, namespace: "unfortunate" }) });
+const local = new Keyv();
+const unfortunate = new Keyv({ store: new KeyvTiered({ remote, local }) });
 
 unfortunate.on("error", err => console.error("Connection Error", err));
 
