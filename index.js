@@ -17,7 +17,9 @@ const client = new Client({
 
 const remote = new Keyv({ store: new KeyvRedis({ uri: env.REDIS_URL, namespace: "unfortunate" }) });
 const local = new Keyv();
-const unfortunate = new Keyv({ store: new KeyvTiered({ remote, local }) });
+const unfortunate = new Keyv({ store: new KeyvTiered({ remote, local, validator: () => {
+	return env.REDIS_URL?.length > 0;
+} }) });
 
 unfortunate.on("error", err => console.error("Connection Error", err));
 
