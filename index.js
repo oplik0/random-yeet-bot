@@ -20,7 +20,8 @@ const local = new Keyv();
 const unfortunate = new Keyv({ store: new KeyvTiered({ remote, local, validator: () => {
 	return env.REDIS_URL?.length > 0;
 } }) });
-
+remote.on("error", err => {});
+local.on("error", err => console.error("Some weird Error", err));
 unfortunate.on("error", err => console.error("Connection Error", err));
 
 // When the client is ready, run this code (only once)
