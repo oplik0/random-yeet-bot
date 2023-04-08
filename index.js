@@ -17,9 +17,15 @@ const client = new Client({
 
 const remote = new Keyv({ store: new KeyvRedis({ uri: env.REDIS_URL, namespace: "unfortunate" }) });
 const local = new Keyv();
-const unfortunate = new Keyv({ store: new KeyvTiered({ remote, local, validator: () => {
-	return env.REDIS_URL?.length > 0;
-} }) });
+const unfortunate = new Keyv({
+	store: new KeyvTiered({
+		remote,
+		local,
+		validator: () => {
+			return env.REDIS_URL?.length > 0;
+		},
+	}),
+});
 remote.on("error", err => {});
 local.on("error", err => console.error("Some weird Error", err));
 unfortunate.on("error", err => console.error("Connection Error", err));
@@ -96,9 +102,9 @@ client.on(Events.InteractionCreate, async interaction => {
 	});
 });
 
-if (typeof kickedOnLeaving === "object" && (kickedOnLeaving?.length ?? 0) > 0 && randomInt(4) === 1) {
+if (typeof kickedOnLeaving === "object" && (kickedOnLeaving?.length ?? 0) > 0) {
 	client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
-		if (newState.channel == null && kickedOnLeaving.includes(oldState.member.id)) {
+		if (newState.channel == null && kickedOnLeaving.includes(oldState.member.id) && randomInt(4) === 1) {
 			oldState.channel.send(`${oldState.member} miał peszek`);
 		}
 	});
