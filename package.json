@@ -11,17 +11,17 @@
 	"license": "MIT",
 	"dependencies": {
 		"@keyv/offline": "^3.0.7",
-		"@keyv/redis": "^2.5.4",
-		"@keyv/tiered": "^1.0.4",
+		"@keyv/redis": "^2.5.7",
+		"@keyv/tiered": "^1.0.5",
 		"@polka/redirect": "1.0.0-next.0",
-		"discord.js": "^14.3.0",
-		"dotenv": "^16.0.2",
+		"discord.js": "^14.9.0",
+		"dotenv": "^16.0.3",
 		"keyv": "^4.5.2",
 		"polka": "^0.5.2"
 	},
 	"packageManager": "pnpm@7.22.0",
 	"devDependencies": {
-		"dprint": "^0.31.1"
+		"dprint": "^0.35.3"
 	},
 	"type": "module"
 }
