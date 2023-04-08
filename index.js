@@ -21,6 +21,9 @@ const unfortunate = new Keyv({ store: new KeyvTiered({ remote, local }) });
 
 unfortunate.on("error", err => console.error("Connection Error", err));
 
+// format - array of user ids
+const kickedOnLeaving = JSON.parse(process.env.KICKED_ON_LEAVING);
+
 // When the client is ready, run this code (only once)
 client.once("ready", init);
 
@@ -89,6 +92,14 @@ client.on(Events.InteractionCreate, async interaction => {
 		ephemeral: true,
 	});
 });
+
+if (typeof kickedOnLeaving === "object" && (kickedOnLeaving?.length ?? 0) > 0 && randomInt(4) === 1) {
+	client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
+		if (newState.channel == null && kickedOnLeaving.includes(oldState.member.id)) {
+			oldState.channel.send(`${oldState.member} miał peszek`);
+		}
+	});
+}
 
 // Login to Discord with your client's token
 client.login(env.DISCORD_TOKEN);
