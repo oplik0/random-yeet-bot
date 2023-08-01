@@ -11,7 +11,6 @@ body:
     attributes:
       label: Issue description
   - type: dropdown
-    id: type
     attributes:
       label: Type
       options:
@@ -22,7 +21,6 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: is-issue
     attributes:
       label: Is this an issue?
       options:
@@ -38,7 +36,6 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: exists
     attributes:
       label: Do you confirm this is an issue?
       options:
@@ -46,7 +43,6 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: really-exists
     attributes:
       label: Are you **really** sure this is an issue?
       options:
@@ -66,7 +62,6 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: really-really-exists
     attributes:
       label: Are you **absolutely** sure this is an issue?
     validations:
