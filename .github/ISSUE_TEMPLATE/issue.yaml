@@ -1,0 +1,136 @@
+name: Issue Report
+description: File an issue
+title: "[Issue]: "
+labels: ["issue", "p?", "needs-priority", "not-fixed", "unconfirmed", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Explain the issue
+  - type: textarea
+    attributes:
+      label: Issue description
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - Bug
+        - Feature Request
+        - Issue
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: is-issue
+    attributes:
+      label: Is this an issue?
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: version
+      description: which version this applies to
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: checkbox
+    id: exists
+    attributes:
+      label: Do you confirm this is an issue?
+    validations:
+      required: true
+  - type: checkbox
+    id: really-exists
+    attributes:
+      label: Are you **really** sure this is an issue?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Operating system
+      placeholder: Solaris
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: PESEL
+      placeholder: 44051401458
+    validations:
+      required: true
+  - type: checkbox
+    id: really-really-exists
+    attributes:
+      label: Are you **absolutely** sure this is an issue?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      value: Please add a video of the issue occuring
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: screenshots
+      value: Please add screenshots of the issue occuring
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: photos
+      placeholder: Please add photos of the screen of the issue occuring
+    validation:
+      required: true
+  - type: input
+    attributes:
+      label: database version
+    validation:
+      required: true
+  - type: checkbox
+    id: really-really-exists
+    attributes:
+      label: Are you **absolutely** sure this is an issue?
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: Thank you for filling out this issue form
+  - type: checkbox
+    attributes:
+      label: I confirm that I have read and understood the privacy policy
+  - type: checkbox
+    attributes:
+      label: I confirm that I have read and understood the End-User License Agreement
+    validations:
+      required: true
+  - type: checkbox
+    attributes:
+      label: I confirm that I have read and understood the Code of Conduct
+    validations:
+      required: true
+  - type: checkbox
+    attributes:
+      label: I confirm that I have read and understood that submitting an issue is known to the state of California to cause cancer, birth defects or other reproductive harm
+    validations:
+      required: true
+  - type: checkbox
+    attributes:
+      label: I confirm that I have read and understood the Issue Template
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        We value your privacy
+        We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By checking this, you consent to our use of cookies.
+  - type: checkbox
+    validations:
+      required: true
+  - type: checkbox
+    attributes:
+      label: For the last time, THIS IS AN ISSUE
+    validations:
+      required: true
