@@ -42,7 +42,7 @@ body:
     attributes:
       label: Do you confirm this is an issue?
       options:
-        - label: yes
+        - label: 'yes'
     validations:
       required: true
   - type: checkboxes
@@ -50,7 +50,7 @@ body:
     attributes:
       label: Are you **really** sure this is an issue?
       options:
-        - label: yes
+        - label: 'yes'
     validations:
       required: true
   - type: textarea
@@ -98,7 +98,7 @@ body:
     attributes:
       label: Are you **absolutely** sure this is an issue?
       options:
-        - label: yes
+        - label: 'yes'
     validations:
       required: true
   - type: markdown
@@ -153,6 +153,6 @@ body:
     attributes:
       label: For the last time, THIS IS AN ISSUE
       options:
-        - label: YES
+        - label: "YES, FOR GOD'S SAKE"
     validations:
       required: true
