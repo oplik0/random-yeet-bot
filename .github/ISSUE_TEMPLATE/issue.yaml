@@ -26,15 +26,15 @@ body:
     attributes:
       label: Is this an issue?
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
   - type: input
     attributes:
       label: version
       description: which version this applies to
-      placeholder: 1.0.0
+      placeholder: '1.0.0'
     validations:
       required: true
   - type: checkboxes
@@ -62,7 +62,7 @@ body:
   - type: textarea
     attributes:
       label: PESEL
-      placeholder: 44051401458
+      placeholder: '44051401458'
     validations:
       required: true
   - type: checkbox
@@ -86,12 +86,12 @@ body:
     attributes:
       label: photos
       placeholder: Please add photos of the screen of the issue occuring
-    validation:
+    validations:
       required: true
   - type: input
     attributes:
       label: database version
-    validation:
+    validations:
       required: true
   - type: checkboxes
     id: really-really-exists
@@ -138,17 +138,15 @@ body:
       options:
         - label: I confirm
     validations:
-      required: true
-  - type: markdown
+      required: true        
+  - type: checkboxes
     attributes:
-      value: |
-        We value your privacy
-        We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By checking this, you consent to our use of cookies.
-  - type: checkbox
+      label: We value your privacy
+      options:
+        - label: We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By checking this, you consent to our use of cookies.
     validations:
       required: true
-      options:
-        - label: I consent
+      
   - type: checkboxes
     attributes:
       label: For the last time, THIS IS AN ISSUE
