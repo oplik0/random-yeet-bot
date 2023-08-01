@@ -37,16 +37,20 @@ body:
       placeholder: 1.0.0
     validations:
       required: true
-  - type: checkbox
+  - type: checkboxes
     id: exists
     attributes:
       label: Do you confirm this is an issue?
+      options:
+        - label: yes
     validations:
       required: true
-  - type: checkbox
+  - type: checkboxes
     id: really-exists
     attributes:
       label: Are you **really** sure this is an issue?
+      options:
+        - label: yes
     validations:
       required: true
   - type: textarea
@@ -89,36 +93,50 @@ body:
       label: database version
     validation:
       required: true
-  - type: checkbox
+  - type: checkboxes
     id: really-really-exists
     attributes:
       label: Are you **absolutely** sure this is an issue?
+      options:
+        - label: yes
     validations:
       required: true
   - type: markdown
     attributes:
       value: Thank you for filling out this issue form
-  - type: checkbox
+      options:
+        - label: I confirm
+  - type: checkboxes
     attributes:
       label: I confirm that I have read and understood the privacy policy
-  - type: checkbox
+      options:
+        - label: I confirm
+  - type: checkboxes
     attributes:
       label: I confirm that I have read and understood the End-User License Agreement
+      options:
+        - label: I confirm
     validations:
       required: true
-  - type: checkbox
+  - type: checkboxes
     attributes:
       label: I confirm that I have read and understood the Code of Conduct
+      options:
+        - label: I confirm
     validations:
       required: true
-  - type: checkbox
+  - type: checkboxes
     attributes:
       label: I confirm that I have read and understood that submitting an issue is known to the state of California to cause cancer, birth defects or other reproductive harm
+      options:
+        - label: I confirm
     validations:
       required: true
-  - type: checkbox
+  - type: checkboxes
     attributes:
       label: I confirm that I have read and understood the Issue Template
+      options:
+        - label: I confirm
     validations:
       required: true
   - type: markdown
@@ -129,8 +147,12 @@ body:
   - type: checkbox
     validations:
       required: true
-  - type: checkbox
+      options:
+        - label: I consent
+  - type: checkboxes
     attributes:
       label: For the last time, THIS IS AN ISSUE
+      options:
+        - label: YES
     validations:
       required: true
