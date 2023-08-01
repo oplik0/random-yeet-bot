@@ -64,6 +64,8 @@ body:
   - type: checkboxes
     attributes:
       label: Are you **absolutely** sure this is an issue?
+      options:
+        - label: 'YES'
     validations:
       required: true
   - type: textarea
