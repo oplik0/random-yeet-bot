@@ -68,6 +68,7 @@ body:
       required: true
   - type: textarea
     attributes:
+      label: videos
       value: Please add a video of the issue occuring
     validations:
       required: true
@@ -99,8 +100,6 @@ body:
   - type: markdown
     attributes:
       value: Thank you for filling out this issue form
-      options:
-        - label: I confirm
   - type: checkboxes
     attributes:
       label: I confirm that I have read and understood the privacy policy
